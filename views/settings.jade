@@ -1,0 +1,42 @@
+extends layout
+
+block pageTitle
+    .jumbotron
+        h1 Settings
+        h2 Hotlab Connect
+        p Set
+
+
+    .login.well
+
+        //form(id='settings-form', method='POST', action='/save' novalidate)
+        //form(id='settings-form', method='POST', action='' novalidate)
+        form(id='settings-form', method='post', action='/getJSON' novalidate)
+            h2 Dose Calibrator Communications
+            //hr
+            .form-group
+
+                label(for='selCommPortName') Comm Port
+                select.form-control(name='selCommPortName', id='selCommPortName', value="#{CommPortName}")
+                  option(value='1')  -- Select One --
+                  option(value='2')  -- Select Two --
+            .form-group
+                label(for='CommPortName') Comm Port
+                input(type='text', name='CommPortName', class='form-control', value="#{Baud}",
+                id='CommPortName', placeholder='Comm Port Name')
+            .form-group
+                label(for='Baud') Baud Rate
+                input(type='text', name='Baud', class='form-control', value="#{Baud}",
+                id='Baud', placeholder='Baud Rate')
+            hr
+            h2 Web Access
+
+            .form-group
+                label(for='webport') Web Port
+                input(type='text', name='webport', class='form-control', value="#{webport}",
+                id='webport', placeholder='Web Port')
+            .form-group
+                button.btn.btn-default Save
+
+
+

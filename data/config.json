@@ -1,0 +1,5 @@
+{
+  "CommPortName": "/dev/ttyUSB0",
+  "CommPortBaud": 4800,
+  "WebPort": 8080
+}

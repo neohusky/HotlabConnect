@@ -1,0 +1,18 @@
+//
+   Created by nucmed on 29/09/15.
+
+doctype
+html
+    head
+        title #{title} - My Site
+        link(rel='stylesheet', href='/stylesheets/style.css')
+    body
+        header
+            h1 #{title} - My Site
+        .container
+            .main-content
+                block content
+            .sidebar
+                block sidebar
+        footer
+            p Running on node with Express, Jade and Stylus
