@@ -21,10 +21,18 @@ process.stdin.on('keypress', function (ch, key) {
         //ScannedBarcode = ScannedBarcode; //Add +"/n" if CR is required
         console.log("Barcode:"+ScannedBarcode);
         LastBarCode = ScannedBarcode;
+        LastBarCode = 'E2134';
         ScannedBarcode ="";
     }
 });
 //process.stdin.setRawMode(true); //Use this to output one letter at a time
 process.stdin.resume();
 
-module.exports.LastBarCode = LastBarCode;
+exports.getBarcode = function (callback) {
+    var data = [];
+    LastBarCode = 'E2134';
+
+        data.push({Barcode:LastBarCode});
+
+    callback(data);
+};

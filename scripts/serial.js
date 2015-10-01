@@ -3,12 +3,13 @@
  */
 serialport = require('serialport');
 var config = require("../data/config.js");
-
+var calibrator = require('../scripts/calibrator.js');
 var serialData
     ,StatusString;
 
 
-
+//serialData ='~1 Tc-99m 35.1 1.293 GBq';
+//LastBarCode ='E2841 /n';
 /////////////////Set up Serial Port Functions
 SerialPort = serialport.SerialPort;    // make a local instance of it
 var myPort = new SerialPort(config.CommPortName, {
@@ -55,7 +56,7 @@ exports.resetComm = function () {
 };
 
 
-exports.listCommPorts = function (callback) {
+exports.getCommPorts = function (callback) {
     var PortList = {
         options: []
     };
@@ -73,6 +74,33 @@ exports.listCommPorts = function (callback) {
     });
 
 };
+
+exports.getCalStatus = function (callback) {
+    var data = [];
+
+    if(!serialData){
+        data.push({Status:'No Comm'});
+
+    } else {
+        data.push({Status:'OK'});
+    }
+    callback(data);
+};
+exports.getCalReading = function (callback) {
+    var data = [];
+    serialData ='~1 Tc-99m 35.1 1.293 GBq';
+    if(!serialData){
+        data.push({Status:'No Comm'});
+
+    } else {
+        data.push({Status:'OK'});
+        data.push({Isotope:calibrator.IsotopeA100(serialData)});
+        data.push({Activity:calibrator.ActivityA100(serialData)});
+        data.push({Units:calibrator.UnitsA100(serialData)});
+    }
+    callback(data);
+};
+
 
 exports.calIsotope = function (r) {
     var isotope = req.params.isotope;

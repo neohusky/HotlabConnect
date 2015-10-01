@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var keypress = require('keypress');
 var serial = require('../scripts/serial.js');
-var calibrator = require('../scripts/calibrator.js');
+
 var barcode = require("../scripts/barcode.js");
 
 /* GET home page. */
@@ -47,6 +47,9 @@ router.post('/getJson', function (req, res) {
     res.render('about');
 });
 
+
+
+
 router.get('/data', function(req, res, next){
 
     //serialData ='~1 Tc-99m 35.1 1.293 GBq';
@@ -76,15 +79,37 @@ router.get('/data', function(req, res, next){
     barcode.LastBarCode = ""
 });
 
-router.get('/listports', function(req, res) {
+router.get('/getCommPorts', function(req, res) {
 
-    serial.listCommPorts(function (list) {
+    serial.getCommPorts(function (list) {
         res.json(list);
 
     });
 });
 
+router.get('/getCalReading', function(req, res) {
 
+    serial.getCalReading(function (data) {
+        res.json(data);
+
+    });
+});
+
+router.get('/getCalStatus', function(req, res) {
+
+    serial.getCalStatus(function (data) {
+        res.json(data);
+
+    });
+});
+router.get('/getBarcode', function(req, res) {
+
+    barcode.getBarcode(function (data) {
+        res.json(data);
+
+    });
+
+});
 
 // accept get request at /user
 router.get('/test', function (req, res) {
